@@ -35,10 +35,10 @@ const minaKey = new kx.Secret("mina-secret", {
 const block_producer_helm_values_file = fs.readFileSync('block_producer_values.yaml', 'utf8')
 const block_producer_helm_values = YAML.parse(block_producer_helm_values_file)
 const blockProducer = new k8s.helm.v2.Chart("block-producer", {
-//    chart: "block-producer",
-    //fetchOpts: {
-      //repo: "https://coda-charts.storage.googleapis.com" },
-    path: "../mina/helm/block-producer",
+    chart: "block-producer",
+    fetchOpts: {
+      repo: "https://coda-charts.storage.googleapis.com" },
+    //path: "../mina/helm/block-producer",
     values: {
         "testnetName": "testworld",
         "coda": {
