@@ -16,7 +16,7 @@ const vpc = new awsx.ec2.Vpc("mina-vpc", {});
 const cluster = new eks.Cluster("mina-private-chain", {
     vpcId: vpc.id,
     subnetIds: vpc.publicSubnetIds,
-    instanceType: "c5.large",
+    instanceType: "c5.xlarge",
     desiredCapacity: 2,
 
 })
