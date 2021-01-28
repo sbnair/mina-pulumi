@@ -12,6 +12,12 @@ Create 3 files:
 
 Download the prerequisites: Pulumi, AWS CLI, and kubectl.
 
+Install the typescript dependencies:
+
+```
+yarn install
+```
+
 Login to AWS with the CLI, then do:
 
 ```
