@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mina-sidecar
+  labels:
+    app: mina-sidecar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mina-sidecar
+  template:
+    metadata:
+      labels:
+        app: mina-sidecar
+    spec:
+      containers:
+      - name: mina-sidecar
+        image: {{ .Values.sidecar_image | quote }}
+        env:
+        - name: MINA_BP_UPLOAD_URL
+          value: https://us-central1-mina-mainnet-303900.cloudfunctions.net/block-producer-stats-ingest/?token=72941420a9595e1f4006e2f3565881b5
+        - name: MINA_NODE_URL
+          value: http://my-block-producer-graphql:3085

@@ -42,19 +42,13 @@ const blockProducer = new k8s.helm.v2.Chart("block-producer", {
     values: {
         "testnetName": "testworld",
         "coda": {
-            "image": "minaprotocol/mina-daemon-baked:0.3.0-5493fe3-encore-6fe6a3e",
+            "image": "minaprotocol/mina-daemon-baked:1.1.3-48401e9",
             "privkeyPass": private_key_password,
             "logLevel": "info",
             "persistentStorage": true,
-            "runtimeConfig": '{ "daemon": { "log-block-creation": false, "super-catchup": true }}',
-            "seedPeers": [ "/dns4/seed-one.testworld.o1test.net/tcp/10001/p2p/12D3KooWJ9mNdbUXUpUNeMnejRumKzmQF15YeWwAPAhTAWB6dhiv",
-                "/ip4/35.245.75.74/tcp/10001/p2p/12D3KooWAFFq2yEQFFzhU5dt64AWqawRuomG9hL8rSmm5vxhAsgr",
-                "/ip4/34.86.189.237/tcp/10517/p2p/12D3KooWPc8xqjGRpbAkL5TyQCXjuBjF6TDNFSw5n42t1fjPgdAw",
-                "/ip4/34.86.233.91/tcp/10508/p2p/12D3KooWFuJM1d6K18WJ929Vc7mWsN4swfzskC5xFZnpnNDFGMDh",
-                "/ip4/34.86.27.124/tcp/10514/p2p/12D3KooWRdk6F1p77bW8ahEZCQYJ2Yo8kmKLBsxNJXxCR42XjTqu",
-                "/ip4/34.86.29.4/tcp/10506/p2p/12D3KooWFjJiKbAdVJooiLRCeQyumbKmDU4kXjYrkNfZ8jD7CmDS",
-                "/ip4/34.86.68.2/tcp/10504/p2p/12D3KooWEzXZK4ohXF3PM53hvzGhs2nqSxYXRsca9AutisunJaZY",
-                "/ip4/34.86.87.116/tcp/10510/p2p/12D3KooWLSwJ8Gc4iLyW48FoQPwM6ZDLt948THTjv1PDms1rsGE5" ],
+            "runtimeConfig": '{ "daemon": { "log-block-creation": false }}',
+            "seedPeersURL": "https://storage.googleapis.com/mina-seed-lists/mainnet_seeds.txt",
+            "seedPeers": [],
         },
         "nodeSelector": {"preemptible": false},
         "blockProducerConfigs": [
@@ -63,6 +57,13 @@ const blockProducer = new k8s.helm.v2.Chart("block-producer", {
               "externalPort": 1 }
         ]
     }
+}, { providers: { "kubernetes": cluster.provider } });
+
+const sidecar = new k8s.helm.v2.Chart("sidecar", {
+    //chart: "block-producer",
+    //fetchOpts: {
+      //repo: "https://coda-charts.storage.googleapis.com" },
+    path: "./sidecar-chart",
 }, { providers: { "kubernetes": cluster.provider } });
 
 
