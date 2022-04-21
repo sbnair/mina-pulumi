@@ -1,0 +1,10 @@
+
+   
+name: mina-aws
+runtime: nodejs
+description: Mina and AWSe
+template:
+  config:
+    aws:region:
+      description: The AWS region to deploy into
+      default: ca-central-1
