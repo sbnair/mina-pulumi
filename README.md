@@ -25,5 +25,5 @@ c. Configure pulumi using these commands :
    1. pulumi config set aws:region ca-central-1
    2. pulumi up
 
-It should work :)
+If everything is ok then you should be able to see all the EKS related dependencies are installed and the block production starts.
 
